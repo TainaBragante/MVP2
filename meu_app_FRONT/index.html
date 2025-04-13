@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="styles.css">
+
+    <title>Cálculo de Comissionamento</title>
+</head>
+
+<body>
+     <!-- Cabeçalho de informações do sistema -->
+    <header>
+        <div class="title">
+            <h1>Comissão dos funcionários</h1>
+        </div>
+    </header>
+
+     <!-- Opções para adicionar um novo item -->
+    <section class="newItem"> 
+        <input type="text" id="novoFuncionario" placeholder="Nome do funcionário:">
+        <input type="number" id="novaVenda" placeholder="Valor total das vendas:">
+        <input type="number" id="novaPorcentagem" placeholder="Porcentagem sobre as vendas:">
+        <button onclick="newItem()" class="addBtn">Adicionar</button>
+    </section>
+
+    <!-- Tabela com items existentes -->
+    <section class="items">
+        <table id="myTable">
+            <tr>
+                <th>Nome</th>
+                <th>Vendas</th>
+                <th>Porcentagem</th> 
+                <th>Comissão</th>
+                <th><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSiFPhTeWFhhcNCFaw9jH5lEq-2CIzQTPFXrw&s" width="20px" height="20px"></th>
+            </tr>
+        </table>
+    </section>
+
+    <script src="scripts.js"></script>
+</body>
+
+</html>
+
+

@@ -1,0 +1,174 @@
+/* Configuração base */
+body, ul, li {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    background-color: #F4F4F9;
+    color: #333333;
+    line-height: 1.6;
+}
+
+header {
+    background-color: #000000;
+    text-align: center;
+    padding: 20px 0; 
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+    color: white;
+    font-size: 28px; 
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin: 0;
+}
+
+/* Seção de formulário */
+.newItem {
+    background-color: #FFFFFF;
+    padding: 20px; 
+    margin: 20px auto; 
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    border: 1px solid #E0E0E0;
+    border-radius: 10px;
+    width: 95%;
+    max-width: 850px; 
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    gap: 15px; 
+}
+
+#novoFuncionario,
+#novaPorcentagem,
+#novaVenda {
+    border: 1px solid #CCCCCC;
+    border-radius: 8px;
+    padding: 10px; 
+    font-size: 14px; 
+    width: 100%;
+    max-width: 220px; 
+    background-color: #FAFAFA;
+    transition: border-color 0.3s ease;
+}
+
+#novoFuncionario:focus,
+#novaPorcentagem:focus,
+#novaVenda:focus {
+    border-color: #000000;
+    background-color: #FFFFFF;
+    outline: none;
+}
+
+.addBtn {
+    background-color: #00B386;
+    color: white;
+    font-size: 16px; 
+    font-weight: bold;
+    padding: 10px 20px; 
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.addBtn:hover {
+    background-color: #000000;
+    transform: scale(1.05);
+}
+
+.close:hover {
+    color: #f44336;
+    font-weight: bolder;
+    cursor: pointer; /* Muda o cursor para a mãozinha */
+}
+
+/* Tabela */
+.items {
+    margin: 20px auto; 
+    padding: 0;
+    width: 95%;
+    max-width: 890px; 
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+th:last-child, td:last-child {
+    text-align: center; 
+    vertical-align: middle; 
+    width: 50px; 
+}
+
+img {
+    display: block; 
+    margin: 0 auto; 
+}
+
+th, td {
+    padding: 14px; 
+    text-align: left;
+    border: 1px solid #E0E0E0;
+    vertical-align: middle;
+}
+
+th {
+    background-color: #000000 ;
+    color: #FFFFFF;
+    font-size: 16px; 
+}
+
+td {
+    color: #333333;
+    font-size: 14px; 
+}
+
+tr:nth-child(odd) {
+    background-color: #F4F4F9;
+}
+
+tr:hover {
+    background-color: #cecece;
+    color: white;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+th:nth-child(1) {
+    width: 30%; 
+}
+
+td:last-child {
+    text-align: center;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .newItem {
+        flex-direction: column; /* Campos em coluna no mobile */
+        align-items: stretch;
+        gap: 10px; /* Espaçamento menor no mobile */
+    }
+
+    #novoFuncionario,
+    #novaPorcentagem,
+    #novaVenda,
+    .addBtn {
+        max-width: 100%;
+    }
+
+    table {
+        font-size: 14px;
+    }
+
+    th, td {
+        font-size: 12px;
+    }
+}
