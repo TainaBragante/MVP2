@@ -16,12 +16,10 @@ class FuncionarioBuscaSchema(BaseModel):
     """
     nome: str = "Jorge Silva"
 
-
 class ListagemFuncionariosSchema(BaseModel):
     """ Define como uma listagem de funcionarios será retornada.
     """
     funcionarios:List[FuncionarioSchema]
-
 
 class FuncionarioViewSchema(BaseModel):
     """ Define como um funcionario será retornado: funcionario.
@@ -47,7 +45,6 @@ def apresenta_funcionarios(funcionarios: List[Funcionario]):
 
     return {"funcionarios": result}
 
-
 def apresenta_funcionario(funcionario: Funcionario):
     """ Retorna uma representação do funcionario seguindo o schema definido em
         FuncionarioViewSchema.
@@ -61,10 +58,13 @@ def apresenta_funcionario(funcionario: Funcionario):
     
     }
 
-
 class FuncionarioDelSchema(BaseModel):
     """ Define como deve ser a estrutura do dado retornado após uma requisição
         de remoção.
     """
     mesage: str
     nome: str
+
+class ConversaoResponseSchema(BaseModel):
+    """ Define a resposta da taxa de câmbio."""
+    exchange_rate: float

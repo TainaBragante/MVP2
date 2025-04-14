@@ -5,6 +5,7 @@ from sqlalchemy.exc import IntegrityError
 from model import Session, Funcionario
 from logger import logger
 from schemas import *
+from schemas.funcionario import *
 from flask_cors import CORS
 import requests
 
@@ -146,7 +147,7 @@ def del_funcionario(query: FuncionarioBuscaSchema):
 
 
 @app.get('/conversao', tags=[home_tag],
-         responses={"200": {"description": "Taxa de câmbio obtida com sucesso"}, "500": ErrorSchema})
+         responses={"200": ConversaoResponseSchema, "500": ErrorSchema})
 def get_exchange_rate():
     """Obtém a taxa de câmbio do dólar para real usando a API do Yahoo Finance."""
     try:
