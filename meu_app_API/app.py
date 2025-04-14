@@ -6,6 +6,7 @@ from model import Session, Funcionario
 from logger import logger
 from schemas import *
 from flask_cors import CORS
+import requests
 
 
 info = Info(title="Minha API", version="1.0.0")
@@ -142,4 +143,24 @@ def del_funcionario(query: FuncionarioBuscaSchema):
         error_msg = "Funcionario não encontrado na base :/"
         logger.warning(f"Erro ao deletar funcionario #'{funcionario_nome}', {error_msg}")
         return {"mesage": error_msg}, 404
+
+
+@app.get('/conversao', tags=[home_tag],
+         responses={"200": {"description": "Taxa de câmbio obtida com sucesso"}, "500": ErrorSchema})
+def get_exchange_rate():
+    """Obtém a taxa de câmbio do dólar para real usando a API do Yahoo Finance."""
+    try:
+        # URL da API do Yahoo Finance
+        url = "https://query1.finance.yahoo.com/v7/finance/quote?symbols=USDBRL=X"
+        response = requests.get(url)
+        response.raise_for_status()  # Exceção para códigos de status HTTP de erro
+
+        # Extrai a taxa de câmbio do JSON retornado
+        data = response.json()
+        exchange_rate = data["quoteResponse"]["result"][0]["regularMarketPrice"]
+
+        return {"exchange_rate": exchange_rate}, 200
+    except Exception as e:
+        logger.error(f"Erro ao obter a taxa de câmbio: {e}")
+        return {"message": "Erro ao obter a taxa de câmbio"}, 500
 

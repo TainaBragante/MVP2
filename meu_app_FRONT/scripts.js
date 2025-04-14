@@ -24,7 +24,6 @@ const getList = async () => {
 */
 getList() 
 
-
 /*
   --------------------------------------------------------------------------------------
   Função para colocar um item na lista do servidor via requisição POST
@@ -58,7 +57,6 @@ const postItem = async (inputFuncionario, inputVenda, inputPorcentagem) => {
     });
 };
 
-
 /*
   --------------------------------------------------------------------------------------
   Função para criar um botão close para cada item da lista
@@ -71,7 +69,6 @@ const insertButton = (parent) => {
   span.appendChild(txt);
   parent.appendChild(span);
 }
-
 
 /*
   --------------------------------------------------------------------------------------
@@ -111,27 +108,48 @@ const deleteItem = (item) => {
     });
 }
 
-
 /*
   --------------------------------------------------------------------------------------
-  Função para adicionar um novo item com nome, venda e porcentagem  
+  Função para adicionar um novo item na tabela
   --------------------------------------------------------------------------------------
 */
-const newItem = () => {
-  let inputFuncionario = document.getElementById("novoFuncionario").value; // Nome
-  let inputVenda = parseFloat(document.getElementById("novaVenda").value); // Vendas
-  let inputPorcentagem = parseFloat(document.getElementById("novaPorcentagem").value); // Porcentagem
+async function newItem() {
+    const nome = document.getElementById("novoFuncionario").value;
+    const vendas = parseFloat(document.getElementById("novaVenda").value);
+    const porcentagem = parseFloat(document.getElementById("novaPorcentagem").value);
 
-  if (inputFuncionario === '') {
-    alert("Escreva o nome do funcionário!");
-  } else if (isNaN(inputVenda) || isNaN(inputPorcentagem)) {
-    alert("Vendas e porcentagem precisam ser preenchidos!");
-  } else {
-    // Chama a função de POST para enviar os dados e atualizar a lista automaticamente
-    postItem(inputFuncionario, inputVenda, inputPorcentagem);
-  }
-};
+    if (!nome || isNaN(vendas) || isNaN(porcentagem)) {
+        alert("Preencha todos os campos corretamente!");
+        return;
+    }
 
+    // Calcula a comissão em dólares
+    const comissaoDolar = (vendas * porcentagem) / 100;
+
+    // Obtém a taxa de câmbio
+    const exchangeRate = await getExchangeRate();
+    if (!exchangeRate) return;
+
+    // Converte a comissão para reais
+    const comissaoReal = comissaoDolar * exchangeRate;
+
+    // Adiciona os dados na tabela
+    const table = document.getElementById("myTable");
+    const row = table.insertRow();
+    row.innerHTML = `
+        <td>${nome}</td>
+        <td>US$ ${vendas.toFixed(2)}</td>
+        <td>${porcentagem}%</td>
+        <td>US$ ${comissaoDolar.toFixed(2)}</td>
+        <td>R$ ${comissaoReal.toFixed(2)}</td>
+        <td><button onclick="deleteRow(this)">Excluir</button></td>
+    `;
+
+    // Limpa os campos
+    document.getElementById("novoFuncionario").value = "";
+    document.getElementById("novaVenda").value = "";
+    document.getElementById("novaPorcentagem").value = "";
+}
 
 /*
   --------------------------------------------------------------------------------------
@@ -155,3 +173,22 @@ const insertList = (nome, venda, porcentagem, comissao) => {
   removeElement()
 }
 
+/*
+  --------------------------------------------------------------------------------------
+  Função para obter a taxa de câmbio
+  --------------------------------------------------------------------------------------
+*/
+async function getExchangeRate() {
+  try {
+      const response = await fetch("http://127.0.0.1:5000/conversao");
+      if (!response.ok) {
+          throw new Error("Erro ao obter a taxa de câmbio");
+      }
+      const data = await response.json();
+      return data.exchange_rate;
+  } catch (error) {
+      console.error("Erro ao obter a taxa de câmbio:", error);
+      alert("Não foi possível obter a taxa de câmbio no momento.");
+      return null;
+  }
+}
