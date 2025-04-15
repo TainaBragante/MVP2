@@ -2,3 +2,16 @@
 [2025-04-13 22:21:56,701] INFO _log() L225   * Restarting with stat - call_trace=\\192.168.10.100\clientes\TAINA\.Taina\MVP\MVP2\env\Lib\site-packages\werkzeug\_internal.py L225 
 [2025-04-14 15:27:12,449] INFO _log() L225   * Restarting with stat - call_trace=C:\Users\Admin\Documents\GitHub\MVP2\env\Lib\site-packages\werkzeug\_internal.py L225 
 [2025-04-14 15:28:37,476] ERROR get_exchange_rate() L165  Erro ao obter a taxa de câmbio: 429 Client Error: Too Many Requests for url: https://query1.finance.yahoo.com/v7/finance/quote?symbols=USDBRL=X - call_trace=C:\Users\Admin\Documents\GitHub\MVP2\meu_app_API\app.py L165 
+[2025-04-14 22:38:41,070] ERROR get_exchange_rate() L165  Erro ao obter a taxa de câmbio: 429 Client Error: Too Many Requests for url: https://query1.finance.yahoo.com/v7/finance/quote?symbols=USDBRL=X - call_trace=C:\Users\Admin\Documents\GitHub\MVP2\meu_app_API\app.py L165 
+[2025-04-14 22:38:46,285] ERROR get_exchange_rate() L165  Erro ao obter a taxa de câmbio: 429 Client Error: Too Many Requests for url: https://query1.finance.yahoo.com/v7/finance/quote?symbols=USDBRL=X - call_trace=C:\Users\Admin\Documents\GitHub\MVP2\meu_app_API\app.py L165 
+[2025-04-15 13:26:59,868] ERROR get_exchange_rate() L165  Erro ao obter a taxa de câmbio: 429 Client Error: Too Many Requests for url: https://query1.finance.yahoo.com/v7/finance/quote?symbols=USDBRL=X - call_trace=C:\Users\Admin\Documents\GitHub\MVP2\meu_app_API\app.py L165 
+[2025-04-15 13:43:54,412] INFO _log() L225   * Restarting with stat - call_trace=C:\Users\Admin\Documents\GitHub\MVP2\env\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-15 13:44:24,131] INFO _log() L225   * Restarting with stat - call_trace=C:\Users\Admin\Documents\GitHub\MVP2\env\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-15 13:44:27,815] INFO _log() L225   * Restarting with stat - call_trace=C:\Users\Admin\Documents\GitHub\MVP2\env\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-15 13:44:31,578] INFO _log() L225   * Restarting with stat - call_trace=C:\Users\Admin\Documents\GitHub\MVP2\env\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-15 13:44:36,196] INFO _log() L225   * Restarting with stat - call_trace=C:\Users\Admin\Documents\GitHub\MVP2\env\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-15 13:44:39,352] INFO _log() L225   * Restarting with stat - call_trace=C:\Users\Admin\Documents\GitHub\MVP2\env\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-15 13:45:11,303] INFO _log() L225   * Restarting with stat - call_trace=C:\Users\Admin\Documents\GitHub\MVP2\env\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-15 13:45:47,302] ERROR get_exchange_rate() L165  Erro ao obter a taxa de câmbio: 'quoteResponse' - call_trace=C:\Users\Admin\Documents\GitHub\MVP2\meu_app_API\app.py L165 
+[2025-04-15 13:59:29,090] INFO _log() L225   * Restarting with stat - call_trace=C:\Users\Admin\Documents\GitHub\MVP2\env\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-15 13:59:54,312] INFO _log() L225   * Restarting with stat - call_trace=C:\Users\Admin\Documents\GitHub\MVP2\env\Lib\site-packages\werkzeug\_internal.py L225 

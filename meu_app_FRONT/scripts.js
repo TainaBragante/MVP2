@@ -142,7 +142,9 @@ async function newItem() {
         <td>${porcentagem}%</td>
         <td>US$ ${comissaoDolar.toFixed(2)}</td>
         <td>R$ ${comissaoReal.toFixed(2)}</td>
-        <td><button onclick="deleteRow(this)">Excluir</button></td>
+        <td>
+            <button onclick="deleteRow(this)" class="delete-btn">Excluir</button>
+        </td>
     `;
 
     // Limpa os campos
@@ -157,21 +159,21 @@ async function newItem() {
   --------------------------------------------------------------------------------------
 */
 const insertList = (nome, venda, porcentagem, comissao) => {
-  var item = [nome, `R$${venda}`, `${porcentagem}%`, `R$${comissao}`];
-  var table = document.getElementById('myTable');
-  var row = table.insertRow();
+    const table = document.getElementById('myTable');
+    const row = table.insertRow();
 
-  for (var i = 0; i < item.length; i++) {
-    var cel = row.insertCell(i);
-    cel.textContent = item[i];
-  }
-  insertButton(row.insertCell(-1))
-  document.getElementById("novoFuncionario").value = "";
-  document.getElementById("novaVenda").value = "";
-  document.getElementById("novaPorcentagem").value = "";
-
-  removeElement()
-}
+    // Adiciona os dados nas células
+    row.innerHTML = `
+        <td>${nome}</td>
+        <td>US$ ${venda.toFixed(2)}</td>
+        <td>${porcentagem}%</td>
+        <td>US$ ${comissao.toFixed(2)}</td>
+        <td>R$ ${(comissao * 5.0).toFixed(2)}</td> <!-- Exemplo de taxa de câmbio fixa -->
+        <td>
+            <button onclick="deleteRow(this)" class="delete-btn">Excluir</button>
+        </td>
+    `;
+};
 
 /*
   --------------------------------------------------------------------------------------

@@ -149,16 +149,16 @@ def del_funcionario(query: FuncionarioBuscaSchema):
 @app.get('/conversao', tags=[home_tag],
          responses={"200": ConversaoResponseSchema, "500": ErrorSchema})
 def get_exchange_rate():
-    """Obtém a taxa de câmbio do dólar para real usando a API do Yahoo Finance."""
+    """Obtém a taxa de câmbio do dólar para real usando a API da Awesome API."""
     try:
-        # URL da API do Yahoo Finance
-        url = "https://query1.finance.yahoo.com/v7/finance/quote?symbols=USDBRL=X"
+        # URL da API 
+        url = "https://economia.awesomeapi.com.br/last/USD-BRL"
         response = requests.get(url)
         response.raise_for_status()  # Exceção para códigos de status HTTP de erro
 
         # Extrai a taxa de câmbio do JSON retornado
         data = response.json()
-        exchange_rate = data["quoteResponse"]["result"][0]["regularMarketPrice"]
+        exchange_rate = float(data["USDBRL"]["bid"])
 
         return {"exchange_rate": exchange_rate}, 200
     except Exception as e:
