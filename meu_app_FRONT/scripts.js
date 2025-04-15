@@ -96,17 +96,25 @@ const removeElement = () => {
   Função para deletar um item da lista do servidor via requisição DELETE
   --------------------------------------------------------------------------------------
 */
-const deleteItem = (item) => {
-  console.log(item)
-  let url = 'http://127.0.0.1:5000/funcionario?nome=' + item;
+const deleteItem = (btn) => {
+  const row = btn.parentElement.parentElement;
+  const nomeFuncionario = row.cells[0].textContent.trim();
+  
+  console.log("Excluindo funcionário:", nomeFuncionario);
+  let url = 'http://127.0.0.1:5000/funcionario?nome=' + encodeURIComponent(nomeFuncionario);
+  
   fetch(url, {
-    method: 'delete'
+      method: 'delete'
   })
-    .then((response) => response.json())
+    .then(response => response.json())
+    .then(data => {
+        row.remove();
+        console.log("Funcionário excluído com sucesso:", data);
+    })
     .catch((error) => {
-      console.error('Error:', error);
+        console.error('Erro ao excluir o funcionário:', error);
     });
-}
+};
 
 /*
   --------------------------------------------------------------------------------------
@@ -143,7 +151,7 @@ async function newItem() {
         <td>US$ ${comissaoDolar.toFixed(2)}</td>
         <td>R$ ${comissaoReal.toFixed(2)}</td>
         <td>
-            <button onclick="deleteRow(this)" class="delete-btn">Excluir</button>
+            <button onclick="deleteItem(this)" class="delete-btn">Excluir</button>
         </td>
     `;
 
@@ -168,9 +176,9 @@ const insertList = (nome, venda, porcentagem, comissao) => {
         <td>US$ ${venda.toFixed(2)}</td>
         <td>${porcentagem}%</td>
         <td>US$ ${comissao.toFixed(2)}</td>
-        <td>R$ ${(comissao * 5.0).toFixed(2)}</td> <!-- Exemplo de taxa de câmbio fixa -->
+        <td>R$ ${(comissao * 5.0).toFixed(2)}</td>
         <td>
-            <button onclick="deleteRow(this)" class="delete-btn">Excluir</button>
+            <button onclick="deleteItem(this)" class="delete-btn">Excluir</button>
         </td>
     `;
 };
