@@ -10,7 +10,7 @@ from flask_cors import CORS
 import requests
 
 
-info = Info(title="Minha API", version="1.0.0")
+info = Info(title="Minha API", version="2.0.0")
 app = OpenAPI(__name__, info=info)
 CORS(app)
 
@@ -32,7 +32,7 @@ def home():
 def add_funcionario(form: FuncionarioSchema):
     """Adiciona um novo funcionario à base de dados
 
-    Retorna uma representação dos funcionarios, suas respectivas vendas e porcentagem sobre a mesma.
+    Retorna uma representação dos funcionarios, suas respectivas vendas, porcentagem e comissões sobre a mesma.
     """
 
     # Calcula a comissão com base nas vendas e porcentagem
@@ -40,35 +40,43 @@ def add_funcionario(form: FuncionarioSchema):
     porcentagem = float(form.porcentagem)
     comissao = venda * (porcentagem / 100)
 
-    funcionario = Funcionario(
-        nome=form.nome,
-        venda=form.venda,
-        porcentagem=form.porcentagem,
-        comissao=comissao
-    )
-    logger.debug(f"Adicionando funcionario de nome: '{funcionario.nome}'")
-
     try:
-        # criando conexão com a base
+        # Obtenha a taxa de câmbio do endpoint /conversao
+        url = "http://127.0.0.1:5000/conversao"
+        response = requests.get(url)
+        response.raise_for_status()
+        data = response.json()
+        exchange_rate = data["exchange_rate"]
+
+        # Calcula a comissão em reais
+        comissao_real = comissao * exchange_rate
+
+        funcionario = Funcionario(
+            nome=form.nome,
+            venda=form.venda,
+            porcentagem=form.porcentagem,
+            comissao=comissao,
+            comissao_real=comissao_real
+        )
+        logger.debug(f"Adicionando funcionario de nome: '{funcionario.nome}'")
+
         session = Session()
-        # adicionando funcionario
         session.add(funcionario)
-        # efetivando o camando de adição de novo item na tabela
         session.commit()
-        logger.debug(f"Adicionado funcionario de nome: '{funcionario.nome}'")
+        logger.debug(f"Funcionario '{funcionario.nome}' adicionado com sucesso.")
         return apresenta_funcionario(funcionario), 200
 
+    except requests.exceptions.RequestException as e:
+        logger.error(f"Erro ao obter a taxa de câmbio: {e}")
+        return {"mesage": "Erro ao obter a taxa de câmbio"}, 500
+
     except IntegrityError as e:
-        # como a duplicidade do nome é a provável razão do IntegrityError
-        error_msg = "Funcionario de mesmo nome já salvo na base :/"
-        logger.warning(f"Erro ao adicionar funcionario '{funcionario.nome}', {error_msg}")
-        return {"mesage": error_msg}, 409
+        logger.warning(f"Erro ao adicionar funcionario '{funcionario.nome}': {e}")
+        return {"mesage": "Funcionario de mesmo nome já salvo na base :/"}, 409
 
     except Exception as e:
-        # caso um erro fora do previsto
-        error_msg = "Não foi possível salvar novo item :/"
-        logger.warning(f"Erro ao adicionar funcionario '{funcionario.nome}', {error_msg}")
-        return {"mesage": error_msg}, 400
+        logger.error(f"Erro ao adicionar funcionario '{funcionario.nome}': {e}")
+        return {"mesage": "Não foi possível salvar novo item :/"}, 400
 
 
 @app.get('/funcionarios', tags=[funcionario_tag],
@@ -146,7 +154,7 @@ def del_funcionario(query: FuncionarioBuscaSchema):
         return {"mesage": error_msg}, 404
 
 
-@app.get('/conversao', tags=[home_tag],
+@app.get('/conversao', tags=[funcionario_tag],
          responses={"200": ConversaoResponseSchema, "500": ErrorSchema})
 def get_exchange_rate():
     """Obtém a taxa de câmbio do dólar para real usando a API da Awesome API."""

@@ -31,7 +31,7 @@ class FuncionarioViewSchema(BaseModel):
     comissao: float = 1000
 
 def apresenta_funcionarios(funcionarios: List[Funcionario]):
-    """ Retorna uma representação do funcionario seguindo o schema definido em
+    """ Retorna uma representação dos funcionarios seguindo o schema definido em
         FuncionarioViewSchema.
     """
     result = []
@@ -41,6 +41,7 @@ def apresenta_funcionarios(funcionarios: List[Funcionario]):
             "venda": funcionario.venda,
             "porcentagem": funcionario.porcentagem,
             "comissao": funcionario.comissao,
+            "comissao_real": funcionario.comissao_real,
         })
 
     return {"funcionarios": result}
@@ -54,8 +55,8 @@ def apresenta_funcionario(funcionario: Funcionario):
         "nome": funcionario.nome,
         "venda": funcionario.venda,
         "porcentagem": funcionario.porcentagem,
-        "comissao": funcionario.comissao
-    
+        "comissao": funcionario.comissao,
+        "comissao_real": funcionario.comissao_real,
     }
 
 class FuncionarioDelSchema(BaseModel):

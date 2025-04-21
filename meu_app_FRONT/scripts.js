@@ -10,7 +10,7 @@ const getList = async () => {
   })
     .then((response) => response.json())
     .then((data) => {
-      data.funcionarios.forEach(item => insertList(item.nome, item.venda, item.porcentagem, item.comissao))
+      data.funcionarios.forEach(item => insertList(item.nome, item.venda, item.porcentagem, item.comissao, item.comissao_real))
     })
     .catch((error) => {
       console.error('Error:', error);
@@ -45,51 +45,17 @@ const postItem = async (inputFuncionario, inputVenda, inputPorcentagem) => {
         throw new Error(`Erro na requisição: ${response.status}`);
       }
       return response.json();
-    })
-    .then((data) => {
-      // Atualiza a lista diretamente com o dado retornado do back-end
-      insertList(data.nome, data.venda, data.porcentagem, data.comissao);
-      alert("Funcionário adicionado com sucesso!");
-    })
-    .catch((error) => {
-      console.error('Erro:', error);
-      alert("Funcionário já cadastrado.");
-    });
+      })
+      .then((data) => {
+          // Atualiza a lista diretamente com o dado retornado do backend
+          insertList(data.nome, data.venda, data.porcentagem, data.comissao, data.comissao_real);
+          alert("Funcionário adicionado com sucesso!");
+      })
+      .catch((error) => {
+          console.error('Erro:', error);
+          alert("Funcionário já cadastrado.");
+      });
 };
-
-/*
-  --------------------------------------------------------------------------------------
-  Função para criar um botão close para cada item da lista
-  --------------------------------------------------------------------------------------
-*/
-const insertButton = (parent) => {
-  let span = document.createElement("span");
-  let txt = document.createTextNode("\u00D7");
-  span.className = "close";
-  span.appendChild(txt);
-  parent.appendChild(span);
-}
-
-/*
-  --------------------------------------------------------------------------------------
-  Função para remover um item da lista de acordo com o click no botão close
-  --------------------------------------------------------------------------------------
-*/
-const removeElement = () => {
-  let close = document.getElementsByClassName("close");
-  let i;
-  for (i = 0; i < close.length; i++) {
-    close[i].onclick = function () {
-      let div = this.parentElement.parentElement;
-      const nomeItem = div.getElementsByTagName('td')[0].innerHTML
-      if (confirm("Você tem certeza?")) {
-        div.remove()
-        deleteItem(nomeItem)
-        alert("Removido!")
-      }
-    }
-  }
-}
 
 /*
   --------------------------------------------------------------------------------------
@@ -131,29 +97,8 @@ async function newItem() {
         return;
     }
 
-    // Calcula a comissão em dólares
-    const comissaoDolar = (vendas * porcentagem) / 100;
-
-    // Obtém a taxa de câmbio
-    const exchangeRate = await getExchangeRate();
-    if (!exchangeRate) return;
-
-    // Converte a comissão para reais
-    const comissaoReal = comissaoDolar * exchangeRate;
-
-    // Adiciona os dados na tabela
-    const table = document.getElementById("myTable");
-    const row = table.insertRow();
-    row.innerHTML = `
-        <td>${nome}</td>
-        <td>US$ ${vendas.toFixed(2)}</td>
-        <td>${porcentagem}%</td>
-        <td>US$ ${comissaoDolar.toFixed(2)}</td>
-        <td>R$ ${comissaoReal.toFixed(2)}</td>
-        <td>
-            <button onclick="deleteItem(this)" class="delete-btn">Excluir</button>
-        </td>
-    `;
+    // Envia os dados ao backend
+    await postItem(nome, vendas, porcentagem);
 
     // Limpa os campos
     document.getElementById("novoFuncionario").value = "";
@@ -163,10 +108,10 @@ async function newItem() {
 
 /*
   --------------------------------------------------------------------------------------
-  Função para inserir items na lista apresentada
+  Função para inserir itens na lista apresentada
   --------------------------------------------------------------------------------------
 */
-const insertList = (nome, venda, porcentagem, comissao) => {
+const insertList = (nome, venda, porcentagem, comissao, comissao_real) => {
     const table = document.getElementById('myTable');
     const row = table.insertRow();
 
@@ -176,7 +121,7 @@ const insertList = (nome, venda, porcentagem, comissao) => {
         <td>US$ ${venda.toFixed(2)}</td>
         <td>${porcentagem}%</td>
         <td>US$ ${comissao.toFixed(2)}</td>
-        <td>R$ ${(comissao * 5.0).toFixed(2)}</td>
+        <td>R$ ${comissao_real.toFixed(2)}</td>
         <td>
             <button onclick="deleteItem(this)" class="delete-btn">Excluir</button>
         </td>

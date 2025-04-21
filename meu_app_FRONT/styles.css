@@ -34,7 +34,7 @@ header {
     margin: 0;
 }
 
-/* Seção de formulário */
+/* Seção do formulário */
 .newItem {
     background-color: #FFFFFF;
     padding: 20px; 
@@ -89,7 +89,8 @@ header {
     transform: scale(1.05);
 }
 
-.close:hover {
+/* Estilo para o botão de excluir */
+.delete-btn:hover {
     color: #f44336;
     font-weight: bolder;
     cursor: pointer; /* Muda o cursor para a mãozinha */

@@ -1,0 +1,20 @@
+[2025-04-21 12:53:44,134] INFO _log() L225   * Restarting with stat - call_trace=C:\Users\Admin\Documents\GitHub\MVP2\env\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-21 12:54:44,740] WARNING add_funcionario() L74   Erro ao adicionar funcionario 'Jorge Silva': (sqlite3.IntegrityError) UNIQUE constraint failed: funcionario.nome
+[SQL: INSERT INTO funcionario (nome, venda, porcentagem, comissao, comissao_real) VALUES (?, ?, ?, ?, ?)]
+[parameters: ('Jorge Silva', 10000.0, 10.0, 1000.0, 5805.3)]
+(Background on this error at: https://sqlalche.me/e/14/gkpj) - call_trace=C:\Users\Admin\Documents\GitHub\MVP2\meu_app_API\app.py L74  
+[2025-04-21 12:55:18,033] WARNING add_funcionario() L74   Erro ao adicionar funcionario 'Jorge Silva': (sqlite3.IntegrityError) UNIQUE constraint failed: funcionario.nome
+[SQL: INSERT INTO funcionario (nome, venda, porcentagem, comissao, comissao_real) VALUES (?, ?, ?, ?, ?)]
+[parameters: ('Jorge Silva', 10000.0, 10.0, 1000.0, 5805.3)]
+(Background on this error at: https://sqlalche.me/e/14/gkpj) - call_trace=C:\Users\Admin\Documents\GitHub\MVP2\meu_app_API\app.py L74  
+[2025-04-21 13:09:35,644] INFO _log() L225   * Restarting with stat - call_trace=C:\Users\Admin\Documents\GitHub\MVP2\env\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-21 13:14:57,948] INFO _log() L225   * Restarting with stat - call_trace=C:\Users\Admin\Documents\GitHub\MVP2\env\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-21 13:15:08,426] WARNING add_funcionario() L74   Erro ao adicionar funcionario 'Taina': (sqlite3.IntegrityError) UNIQUE constraint failed: funcionario.nome
+[SQL: INSERT INTO funcionario (nome, venda, porcentagem, comissao, comissao_real) VALUES (?, ?, ?, ?, ?)]
+[parameters: ('Taina', 1000.0, 15.0, 150.0, 870.99)]
+(Background on this error at: https://sqlalche.me/e/14/gkpj) - call_trace=C:\Users\Admin\Documents\GitHub\MVP2\meu_app_API\app.py L74  
+[2025-04-21 13:20:33,623] WARNING add_funcionario() L74   Erro ao adicionar funcionario 'Jorge Silva': (sqlite3.IntegrityError) UNIQUE constraint failed: funcionario.nome
+[SQL: INSERT INTO funcionario (nome, venda, porcentagem, comissao, comissao_real) VALUES (?, ?, ?, ?, ?)]
+[parameters: ('Jorge Silva', 10000.0, 10.0, 1000.0, 5807.1)]
+(Background on this error at: https://sqlalche.me/e/14/gkpj) - call_trace=C:\Users\Admin\Documents\GitHub\MVP2\meu_app_API\app.py L74  
+[2025-04-21 13:21:04,489] INFO _log() L225   * Restarting with stat - call_trace=C:\Users\Admin\Documents\GitHub\MVP2\env\Lib\site-packages\werkzeug\_internal.py L225 

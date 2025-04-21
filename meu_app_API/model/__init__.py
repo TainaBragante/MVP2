@@ -2,10 +2,9 @@ from sqlalchemy_utils import database_exists, create_database
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
 import os
-
-# importando os elementos definidos no modelo
 from model.base import Base
 from model.funcionario import Funcionario
+
 
 db_path = "database/"
 # Verifica se o diretorio não existe
