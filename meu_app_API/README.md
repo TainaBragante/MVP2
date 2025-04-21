@@ -33,14 +33,14 @@ Este comando instala as dependências/bibliotecas, descritas no arquivo `require
 Para ativar a API basta executar:
 
 ```
-flask run --host 0.0.0.0 --port 5000
+flask run --host 127.0.0.1 --port 5000
 ```
 
 Em modo de desenvolvimento é recomendado executar utilizando o parâmetro reload, que reiniciará o servidor
 automaticamente após uma mudança no código fonte. 
 
 ```
-flask run --host 0.0.0.0 --port 5000 --reload
+flask run --host 127.0.0.1 --port 5000 --reload
 ```
 
 Abra o [http://localhost:5000/#/](http://localhost:5000/#/) no navegador para verificar o status da API em execução.
