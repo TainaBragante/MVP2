@@ -88,22 +88,18 @@ const deleteItem = (btn) => {
   --------------------------------------------------------------------------------------
 */
 async function newItem() {
-    const nome = document.getElementById("novoFuncionario").value;
-    const vendas = parseFloat(document.getElementById("novaVenda").value);
-    const porcentagem = parseFloat(document.getElementById("novaPorcentagem").value);
+  let inputFuncionario = document.getElementById("novoFuncionario").value; // Nome
+  let inputVenda = parseFloat(document.getElementById("novaVenda").value); // Vendas
+  let inputPorcentagem = parseFloat(document.getElementById("novaPorcentagem").value); // Porcentagem
 
-    if (!nome || isNaN(vendas) || isNaN(porcentagem)) {
-        alert("Preencha todos os campos corretamente!");
-        return;
-    }
-
-    // Envia os dados ao backend
-    await postItem(nome, vendas, porcentagem);
-
-    // Limpa os campos
-    document.getElementById("novoFuncionario").value = "";
-    document.getElementById("novaVenda").value = "";
-    document.getElementById("novaPorcentagem").value = "";
+  if (inputFuncionario === '') {
+    alert("Escreva o nome do funcionário!");
+  } else if (isNaN(inputVenda) || isNaN(inputPorcentagem)) {
+    alert("Vendas e porcentagem precisam ser preenchidos!");
+  } else {
+    // Chama a função de POST para enviar os dados e atualizar a lista automaticamente
+    postItem(inputFuncionario, inputVenda, inputPorcentagem);
+  }
 }
 
 /*
@@ -112,21 +108,27 @@ async function newItem() {
   --------------------------------------------------------------------------------------
 */
 const insertList = (nome, venda, porcentagem, comissao, comissao_real) => {
-    const table = document.getElementById('myTable');
-    const row = table.insertRow();
+  var item = [nome, `US$ ${venda}`, `${porcentagem}%`, `US$ ${comissao}`, `R$ ${comissao_real}`];
+  var table = document.getElementById('myTable');
+  var row = table.insertRow();
 
-    // Adiciona os dados nas células
-    row.innerHTML = `
-        <td>${nome}</td>
-        <td>US$ ${venda.toFixed(2)}</td>
-        <td>${porcentagem}%</td>
-        <td>US$ ${comissao.toFixed(2)}</td>
-        <td>R$ ${comissao_real.toFixed(2)}</td>
-        <td>
-            <button onclick="deleteItem(this)" class="delete-btn">Excluir</button>
-        </td>
-    `;
-};
+  for (var i = 0; i < item.length; i++) {
+    var cel = row.insertCell(i);
+    cel.textContent = item[i];
+  }
+
+  // Adiciona o botão de deletar na última célula
+  var deleteCell = row.insertCell(-1);
+  var deleteButton = document.createElement('button');
+  deleteButton.textContent = "Excluir";
+  deleteButton.className = "delete-btn"; // Classe para estilização
+  deleteButton.onclick = () => deleteItem(deleteButton); // Associa a função deleteItem
+  deleteCell.appendChild(deleteButton);
+
+  document.getElementById("novoFuncionario").value = "";
+  document.getElementById("novaVenda").value = "";
+  document.getElementById("novaPorcentagem").value = "";
+}
 
 /*
   --------------------------------------------------------------------------------------
