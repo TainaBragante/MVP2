@@ -2,7 +2,7 @@
 
 Este projeto foi desenvolvido na pós-graduação em Desenvolvimento Full Stack. Trata-se de um MVP criado para colocar em prática os conceitos aprendidos durante o curso.
 
-O objetivo aqui é criar uma API funcional que gerencie informações de funcionários, incluindo seus nomes, vendas realizadas, porcentagens de comissão, e calcular automaticamente o valor das comissões.
+O objetivo aqui é criar uma API funcional que gerencie informações de funcionários, incluindo seus nomes, vendas realizadas, porcentagens de comissão, e calcular automaticamente o valor das comissões em dólar e posteriormente converter para real.
 
 ---
 ## Como executar 
